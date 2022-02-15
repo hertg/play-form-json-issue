@@ -26,9 +26,8 @@ public class ApiController extends Controller {
     }
 
     public Result createTask(Http.Request request) {
-        final JsonNode requestJson = request.body().asJson();
         final Form<TaskForm> form = formFactory.form(TaskForm.class)
-                .bind(messagesApi.preferred(request).lang(), request.attrs(), requestJson, 102400);
+                .bind(messagesApi.preferred(request).lang(), request.attrs(), request.body().asJson(), 102400);
 
         if (form.hasErrors()) {
             return badRequest(form.errorsAsJson());
